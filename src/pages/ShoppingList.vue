@@ -2,6 +2,7 @@
   <q-card-section class="row text-center">
     <q-card-section class="col text-h4 text-primary">
       {{  header || "welCome" }}
+      <!--add item or modi-->
       <q-btn
         v-if="editing"
         @click="doEdit(false)"
@@ -11,17 +12,18 @@
         label="Cancel"
       ></q-btn>
       <q-btn
-        v-else
-        @click="doEdit(true)"
-        color="primary"
-        unelevated
-        rounded
-        icon-right="send"
-        label="Add Item"
+      v-else
+      @click="doEdit(true)"
+      color="primary"
+            unelevated
+            rounded
+            icon-right="send"
+            label="Add Item"
       ></q-btn>
     </q-card-section>
   </q-card-section>
 
+  <!--item add-->
   <q-card-section class="row justify-center">
     <q-card-section v-if="editing" class="col-8 col-md-3">
       <q-input
@@ -42,13 +44,15 @@
       ></q-checkbox>
     </q-card-section>
 
-    <!--내용저장-->
+    <!--saveItem-->
      <q-card-section v-if="editing" class="col-12 col-md-3">
       <q-btn outline rounded color="primary" @click="saveItem()" label="아이템 저장"></q-btn>
     </q-card-section>
   </q-card-section>
 
-  <q-list bordered>
+  <!--list-->
+  <q-card-section>
+    <q-list bordered>
       <q-item
         v-for="item in reversedItems"
         :key="item.id"
@@ -65,16 +69,16 @@
         </q-item-section>
       </q-item>
     </q-list>
+  </q-card-section>
 
-    <q-item-section class="row text-center">
+  <!--notify-->
+  <q-item-section class="row text-center">
         <q-card-section>
           <span v-if="items.length === 0"
             > 모든 상품을 구매하셨군요! 새 상품을 담아보시죠!</span
           >
         </q-card-section>
-    </q-item-section>
-
-  
+  </q-item-section>
 </template>
 
 <script>
@@ -85,13 +89,13 @@ export default {
     return {
       header:"Shopping List App",
       items : [
-        //{ id: 1, label: "10 party hats", purchased: true, highPriority: false },
-        //{ id: 2, label: "2 board games", purchased: true, highPriority: false },
-        //{ id: 3, label: "20 cups", purchased: false, highPriority: true },
+        // { id: 1, label: "10 party hats", purchased: true, highPriority: false },
+        // { id: 2, label: "2 board games", purchased: true, highPriority: false },
+        // { id: 3, label: "20 cups", purchased: false, highPriority: true },
       ],
       editing:false,
       newItem:"",
-      newItemHightPriority:false,
+      newItemHighPriority:false,
     }
   },
   computed : {
@@ -103,13 +107,11 @@ export default {
     togglePurchased(item){
       item.purchased = !item.purchased;
     },
-
     doEdit(editing){
       this.editing = editing;
       this.newItem = "";
-      this.newItemHightPriority = false;
+      this.newItemHighPriority = false;
     },
-
     async saveItem(){
       if(this.newItem.length == 0) return;
       this.items.push({
@@ -128,6 +130,7 @@ export default {
       this.newItemHighPriority =false;
     }
   }
+
 }
 </script>
 

@@ -28,6 +28,7 @@
 
             <q-card-actions align="right">
                 <q-btn
+                    v-bind:disable="btn"
                     class="aa"
                     color="grey"
                     unelevated
@@ -58,6 +59,7 @@
 
         data () {
             return {
+                btn: true,
                 dialog: false,
                 DiInputId: "",
                 DiInputPw: "",
@@ -104,32 +106,42 @@
                         color: "red",
                     });
                 }
+                this.btn = true;
             },
 
             overlap(DiInputId){
                 let olId = this.userIds.some(ids => {
                     return ids.useId === DiInputId;
                 });
-                if(olId === true){
-                    
+                if(olId === true){ 
                     this.$q.notify({
                         message: `이미 존재합니다.`,
                         icon:"home",
                         color: "primary",
                     });
+                    this.DiInputId = '';
+                } else if (DiInputId === "") {
+                    this.$q.notify({
+                        message: `id를 입력하세요.`,
+                        icon:"home",
+                        color: "primary",
+                    });
                 } else {
+                    this.btn = false;
                     this.$q.notify({
                         message: `사용 가능합니다.`,
                         icon:"home",
                         color: "primary",
                     });
                 }
+                
             },
 
             onCancelClick(){
                 this.dialog = false;
                 this.DiInputId = '';
                 this.DiInputPw = '';
+                this.btn = true;
             },
         },
 

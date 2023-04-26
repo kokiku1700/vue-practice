@@ -11,6 +11,13 @@
                     standout 
                     v-model="DiInputId" 
                     label="id" />
+                    <q-btn
+                        unelevated
+                        dense
+                        color="grey"
+                        label="중복검사"
+                        @click="overlap(DiInputId)"
+                    />
                 <q-input 
                     class='q-ma-sm'
                     rounded 
@@ -21,11 +28,13 @@
 
             <q-card-actions align="right">
                 <q-btn
+                    class="aa"
                     color="grey"
                     unelevated
                     dense
                     label="가입"
                     @click="addUser"
+                    
                 />
                 <q-btn
                 unelevated
@@ -72,13 +81,15 @@
             async addUser() {
                 if(this.DiInputId){
                     if(this.DiInputPw){
-                        this.joinMb(this.DiInputId);
+                        this.joinMb(this.DiInputId, this.DiInputPw);
                         this.dialog = false;
                         await this.$q.notify({
                             message: `${this.DiInputId}님 반갑습니다`,
                             icon:"home",
                             color: "primary",
                         });
+                        this.DiInputId = '';
+                        this.DiInputPw = '';
                     } else {
                         await this.$q.notify({
                             message: `비밀번호를 입력해주세요`,
@@ -94,9 +105,31 @@
                     });
                 }
             },
-            onCancelClick(){
 
+            overlap(DiInputId){
+                let olId = this.userIds.some(ids => {
+                    return ids.useId === DiInputId;
+                });
+                if(olId === true){
+                    
+                    this.$q.notify({
+                        message: `이미 존재합니다.`,
+                        icon:"home",
+                        color: "primary",
+                    });
+                } else {
+                    this.$q.notify({
+                        message: `사용 가능합니다.`,
+                        icon:"home",
+                        color: "primary",
+                    });
+                }
+            },
+
+            onCancelClick(){
                 this.dialog = false;
+                this.DiInputId = '';
+                this.DiInputPw = '';
             },
         },
 

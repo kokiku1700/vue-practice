@@ -13,19 +13,19 @@ export default defineStore("useLogin", {
     },
 
     actions: {
-        joinMb(useId){
+        joinMb(useId, usePw){
             if(this.userIds){
                 this.userIds.unshift({
                     id: uid(),
                     useId,
-                    done:'N'
+                    usePw,
                 });
             }else{
                 this.userIds=[];
                 this.userIds.push({
                     id: uid(),
                     useId,
-                    done:'N'
+                    usePw,
                 });
             }
             LocalStorage.set("login", this.userIds);
@@ -35,6 +35,10 @@ export default defineStore("useLogin", {
             const idx = this.userIds.findIndex(useId => useId.id == id);
             this.userIds.splice(idx, 1);
             LocalStorage.set("login", this.userIds);
-        }
+        },
+
+        listLogin(){
+            this.userIds = LocalStorage.getItem("login");
+        },
     }
 })

@@ -1,6 +1,5 @@
 <template>
-    <q-page class="q-pa-md">
-        
+    <q-page class="q-pa-md" v-model="show" >   
         <q-card-section class="row">
             <q-input 
                 rounded 
@@ -22,7 +21,7 @@
                 color="grey"
                 label="회원가입" />
             <q-btn
-                @click="logIn"
+                @click="logIn(inputId, inputPw)"
                 class="glossy q-ma-sm"
                 rounded 
                 color="grey"
@@ -56,9 +55,11 @@ import DialogMember from "src/components/DialogMember.vue";
 export default {
     name: 'Login',
     title: "Login",
+    
     data() {
         return {
-            userIds: "",
+            show: true,
+            hidden: false,
             inputId: "",
             inputPw: "",
             dialog: false,
@@ -70,13 +71,33 @@ export default {
     components: {JoinMembership, DialogMember}, 
 
     computed: {
-        
+        ...mapState(useLoginStore, ["userIds"]),
+
+    },
+
+    mounted(){
+        this.listLogin();
     },
 
     methods: {
+        ...mapActions(useLoginStore, ["listLogin"]),
         
-        async logIn() {
-
+        async logIn(inputId, inputPw) {
+            let loginId = this.userIds.some(uids => {
+                    return uids.useId === inputId && uids.usePw === inputPw;
+                });
+                if(loginId === true){
+                    this.show = false;
+                    console.log('ㅎㅇ')
+                } else {
+                    await this.$q.notify({
+                        message: `다시 입력해주세요`,
+                        icon:"warning",
+                        color: "red",
+                    });
+                    this.inputId = "";
+                    this.inputPw = "";
+                }
         },
 
         openDialog(){

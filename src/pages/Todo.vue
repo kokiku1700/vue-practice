@@ -93,7 +93,7 @@
       ...mapActions(useTodoStore, ["insertTodo","listTodo","removeTodo","editTodo"]),
       async addTask() {
         if(this.newTask){
-          //store action 저장
+          
           this.insertTodo(this.newTask);
           await this.$q.notify({
               message: `${this.newTask} 추가하셨습니다`,

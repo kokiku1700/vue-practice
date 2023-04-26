@@ -12,9 +12,9 @@
         />
 
         <q-toolbar-title>
-          Vue Study DH
+          <q-btn to="/" label="Quasar App" class="text-subtitle1" unelevated>Vue Study DH</q-btn>
         </q-toolbar-title>
-
+        
         <div>Quasar v{{ $q.version }}</div>
       </q-toolbar>
     </q-header>
@@ -53,21 +53,27 @@ const linksList = [
   {
     title: 'Shopping List',
     caption: 'vue 실습 1',
-    icon: 'code',
+    icon: 'shopping_cart',
     link: '/shop'
   },
   {
     title: 'Vue 기초 문법',
-    captioon: 'Vue 핵심가이드',
+    caption: 'Vue 핵심가이드',
     icon: 'school',
     link: '/vue',
   },
   {
     title: 'todo',
     caption: 'vue + store 실습',
-    icon: 'home',
+    icon: 'list',
     link: '/todo'
   },
+  {
+    title: 'Login',
+    caption: '간단 로그인',
+    icon: 'photo_library',
+    link: '/login'
+  }
 ]
 
 export default defineComponent({

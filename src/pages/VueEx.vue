@@ -172,6 +172,58 @@
     <q-btn label="self" color="primary" @click.self="doThis" class="q-ma-sm" />
   </div>
 
+  <q-card-section class="col-4">
+    메세지 입력하기 : {{ text }}
+    <q-input
+      outlined
+      bottom-slots
+      v-model.lazy="text"
+      label="Label"
+      counter
+      :dense="true"
+    >
+      <template v-slot:prepend>
+        <q-icon name="place" />
+      </template>
+      <template v-slot:append>
+        <q-icon name="close" @click="text = ''" class="cursor-pointer" />
+      </template>
+
+      <template v-slot:hint> Field hint </template>
+    </q-input>
+
+    <span>여러 줄 메세지:</span>
+    <p style="white-space: pre-line;">{{ textArea }}</p>
+    <div class="q-pa-md" style="max-width: 300px">
+      <q-input
+        v-model="textArea"
+        filled
+        type="textarea" />
+    </div>
+  </q-card-section>
+  <q-separator />
+  
+  <q-card-section class="col-4 q-mt-md">
+    <q-option-group
+      v-model="group"
+      :options="opts"
+      color="green"
+      type="checkbox"
+      />
+      {{ group }}
+  </q-card-section>
+
+  <q-card-section class="col-4 q-mt-md">
+    <q-radio v-model="color" val="teal" label="Teal" color="teal" />
+    <q-radio v-model="color" val="orange" label="Orange" color="orange" />
+    <q-radio v-model="color" val="red" label="Red" color="red" />
+    <q-card-section>
+      {{ color }}
+    </q-card-section>
+  </q-card-section>
+
+  <input ref="input" />
+
 </template>
 
 <script>
@@ -254,6 +306,28 @@
             alert(message)
           },
 
+          text: "",
+
+          textArea: "",
+
+          group: ["op1"],
+          opts: [
+            {
+              label: "Option 1",
+              value: "op1",
+            },
+            {
+              label: "Option 2",
+              value: "op2",
+            },
+            {
+              label: "Option 3",
+              value: "op3",
+            },
+          ],
+          color: "",
+          
+          
 
         }
     },
@@ -273,7 +347,7 @@
 
     },
     mounted(){
-
+      this.$refs.input.focus()
     },
     methods:{
       calculateDate() {

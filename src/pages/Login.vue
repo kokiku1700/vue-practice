@@ -88,7 +88,9 @@ export default {
                 });
                 if(loginId === true){
                     this.show = false;
-                    console.log('ㅎㅇ')
+                    console.log('안녕하세요')
+                    this.inputId = "";
+                    this.inputPw = "";
                 } else {
                     await this.$q.notify({
                         message: `다시 입력해주세요`,

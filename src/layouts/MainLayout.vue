@@ -73,7 +73,19 @@ const linksList = [
     caption: '간단 로그인',
     icon: 'photo_library',
     link: '/login'
-  }
+  },
+  {
+    title: "db todo list",
+    caption: "vue + database",
+    icon: "chat",
+    link: "/dbtodo",
+  },
+  {
+    title: "store todo list",
+    caption: "vue + database",
+    icon: "chat",
+    link: "/storetodo",
+  },
 ]
 
 export default defineComponent({
